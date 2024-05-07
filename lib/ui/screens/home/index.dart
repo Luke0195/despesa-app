@@ -1,4 +1,5 @@
 import 'package:despesas/entities/transaction/index.dart';
+import 'package:despesas/ui/screens/home/components/transaction_item.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -14,6 +15,10 @@ class Home extends StatelessWidget {
       Transaction(
           id: '1243', title: 'any_title3', value: 300.10, date: DateTime.now())
     ];
+
+    List<Widget> widgetTransactions = transactions
+        .map((transaction) => TransactionItem(transaction))
+        .toList();
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Colors.blue,
@@ -29,29 +34,27 @@ class Home extends StatelessWidget {
                 Icon(Icons.add, color: Colors.white)
               ],
             )),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                elevation: 5,
-                child: Text('Gráfico'),
-              ),
-            ),
-            const SizedBox(
-                width: double.infinity,
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Expanded(
                 child: Card(
+                  color: Colors.blue,
                   elevation: 5,
-                  child: Text('Lista de Transações'),
-                )),
-            Column(
-                children: transactions.map((tr) {
-              return Card(child: Text(tr.title));
-            }).toList())
-          ],
+                  child: Text('Gráfico'),
+                ),
+              ),
+              const Expanded(
+                  child: Card(
+                elevation: 5,
+                child: Text('Lista de Transações'),
+              )),
+              Column(children: [...widgetTransactions])
+            ],
+          ),
         ));
   }
 }
