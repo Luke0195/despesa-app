@@ -21,7 +21,7 @@ class TransactionItem extends StatelessWidget {
         ),
         decoration: BoxDecoration(
             border: Border.all(color: Colors.grey.shade300, width: 1)),
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.all(4.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,

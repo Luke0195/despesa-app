@@ -1,9 +1,15 @@
 import 'package:despesas/entities/transaction/index.dart';
 import 'package:despesas/ui/screens/home/components/transaction_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  Home({super.key});
+
+  final titleController = TextEditingController();
+  final valueController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,27 +40,88 @@ class Home extends StatelessWidget {
                 Icon(Icons.add, color: Colors.white)
               ],
             )),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Expanded(
-                child: Card(
-                  color: Colors.blue,
-                  elevation: 5,
-                  child: Text('Gráfico'),
-                ),
-              ),
-              const Expanded(
-                  child: Card(
-                elevation: 5,
-                child: Text('Lista de Transações'),
-              )),
-              Column(children: [...widgetTransactions])
-            ],
-          ),
-        ));
+        body: Container(
+            color: Colors.white,
+            padding: const EdgeInsets.only(left: 8, right: 8),
+            child: SizedBox(
+              height: 250,
+              child: Container(
+                  decoration: BoxDecoration(
+                      border:
+                          Border.all(width: 2, color: Colors.grey.shade400)),
+                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  margin: const EdgeInsets.all(8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 42,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8, right: 8),
+                          child: TextField(
+                            onChanged: (value) => titleController.text = value,
+                            textAlignVertical: TextAlignVertical.center,
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.all(8),
+                                labelText: 'Titulo',
+                                hintText: 'Informe o Título da Transação',
+                                focusColor: Colors.blue.shade400,
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.blue.shade500))),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        height: 42,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          child: TextField(
+                            keyboardType: TextInputType.phone,
+                            onChanged: (value) =>
+                                {valueController.text = value},
+                            textAlignVertical: TextAlignVertical.center,
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.all(8),
+                                labelText: 'Transação',
+                                hintText: 'Informe o Valor da Transação R\$ ',
+                                focusColor: Colors.blue.shade400,
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.blue.shade500))),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 8),
+                        child: SizedBox(
+                          height: 42,
+                          width: double.infinity,
+                          child: TextButton(
+                              onPressed: null,
+                              style: ButtonStyle(
+                                  elevation:
+                                      const MaterialStatePropertyAll(5.0),
+                                  shape: MaterialStatePropertyAll(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(6.0))),
+                                  backgroundColor:
+                                      const MaterialStatePropertyAll(
+                                          Colors.blue)),
+                              child: const Text(
+                                'Nova Transação',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                      )
+                    ],
+                  )),
+            )));
   }
 }
